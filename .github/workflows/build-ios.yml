@@ -8,14 +8,11 @@ on:
 jobs:
   build-ios:
     name: Build iOS App
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-
-    - name: Select Xcode Version
-      run: sudo xcode-select -s /Applications/Xcode.app
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
@@ -41,12 +38,13 @@ jobs:
             <ApplicationId>com.coremini.app</ApplicationId>
             <EnableCodeSigning>false</EnableCodeSigning>
             <_RequireCodeSigning>false</_RequireCodeSigning>
+            <_SdkIsSupported>false</_SdkIsSupported>
           </PropertyGroup>
         </Project>
         EOT
 
     - name: Restore Dependencies
-      run: dotnet restore ui-desktop.csproj /p:CheckEolTargetFramework=false
+      run: dotnet restore ui-desktop.csproj /p:CheckEolTargetFramework=false /p:_SdkIsSupported=false
 
     - name: Build iOS App
       run: |
@@ -56,7 +54,8 @@ jobs:
           /p:CheckEolTargetFramework=false \
           /p:BuildIpa=true \
           /p:EnableCodeSigning=false \
-          /p:_RequireCodeSigning=false
+          /p:_RequireCodeSigning=false \
+          /p:_SdkIsSupported=false
 
     - name: Upload iOS Artifact
       uses: actions/upload-artifact@v4
