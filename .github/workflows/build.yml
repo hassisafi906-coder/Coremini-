@@ -24,10 +24,7 @@ jobs:
 
     - name: Restore Dependencies
       run: |
-        dotnet restore ui-desktop.csproj \
-          -f net10.0-android \
-          -r android-arm64 \
-          /p:CheckEolTargetFramework=false
+        dotnet restore ui-desktop.csproj /p:CheckEolTargetFramework=false
 
     - name: Build and Publish Android APK
       run: |
