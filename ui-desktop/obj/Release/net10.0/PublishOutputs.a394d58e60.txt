@@ -1,0 +1,5 @@
+/data/data/com.termux/files/home/Coremini/ui-desktop/bin/Release/net10.0/publish/ui-desktop
+/data/data/com.termux/files/home/Coremini/ui-desktop/bin/Release/net10.0/publish/ui-desktop.dll
+/data/data/com.termux/files/home/Coremini/ui-desktop/bin/Release/net10.0/publish/ui-desktop.deps.json
+/data/data/com.termux/files/home/Coremini/ui-desktop/bin/Release/net10.0/publish/ui-desktop.runtimeconfig.json
+/data/data/com.termux/files/home/Coremini/ui-desktop/bin/Release/net10.0/publish/ui-desktop.pdb

@@ -1,0 +1,2 @@
+/data/data/com.termux/files/home/coremini-site/downloads/linux/ui-desktop.pdb
+/data/data/com.termux/files/home/coremini-site/downloads/linux/ui-desktop
