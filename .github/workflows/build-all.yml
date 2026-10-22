@@ -1,0 +1,60 @@
+name: Build Android APK and iOS IPA
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-both:
+    name: Build APK and IPA
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Install Workloads
+      run: |
+        dotnet workload install android
+        dotnet workload install ios
+
+    - name: Restore Dependencies
+      run: dotnet restore ui-desktop.csproj /p:CheckEolTargetFramework=false
+
+    - name: Build Android APK
+      run: |
+        dotnet build ui-desktop.csproj \
+          -c Release \
+          -f net10.0-android \
+          /p:CheckEolTargetFramework=false \
+          /p:AndroidPackageFormat=apk
+
+    - name: Build iOS IPA
+      run: |
+        dotnet build ui-desktop.csproj \
+          -c Release \
+          -f net10.0-ios \
+          /p:CheckEolTargetFramework=false \
+          /p:BuildIpa=true
+
+    - name: Upload Artifacts (APK & IPA)
+      uses: actions/upload-artifact@v4
+      with:
+        name: Coremini-App-Packages
+        path: |
+          **/bin/Release/net10.0-android/**/*.apk
+          **/bin/Release/net10.0-ios/**/*.ipa
+          **/*.apk
+          **/*.ipa
