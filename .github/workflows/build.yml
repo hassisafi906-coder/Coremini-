@@ -22,16 +22,22 @@ jobs:
     - name: Install MAUI/Android Workload
       run: dotnet workload install maui-android android
 
-    - name: Restore Dependencies for Android
-      run: dotnet restore -p:TargetFrameworks=net10.0-android
-
-    - name: Build Project for Android
-      run: dotnet publish -c Release -f net10.0-android --no-restore /p:OutputType=Exe
+    - name: Build and Publish Android APK
+      run: |
+        dotnet publish \
+          -c Release \
+          -f net10.0-android \
+          -r android-arm64 \
+          /p:OutputType=Exe \
+          /p:CheckEolTargetFramework=false \
+          /p:AndroidPackageFormat=apk \
+          /p:AndroidCreatePackagePerAbi=false
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Coremini-Android-APK
         path: |
-          bin/Release/*/*/*.apk
-          bin/Release/*/*.apk
+          **/bin/Release/*/*/*.apk
+          **/bin/Release/*/*.apk
+          **/*.apk
