@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-both:
-    name: Build APK and IPA
-    runs-on: macos-latest
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
@@ -25,13 +25,11 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
-    - name: Install Workloads
-      run: |
-        dotnet workload install android
-        dotnet workload install ios
+    - name: Install Android Workload
+      run: dotnet workload install android
 
     - name: Restore Dependencies
-      run: dotnet restore ui-desktop.csproj /p:CheckEolTargetFramework=false
+      run: dotnet restore ui-desktop.csproj -f net10.0-android /p:CheckEolTargetFramework=false
 
     - name: Build Android APK
       run: |
@@ -41,7 +39,35 @@ jobs:
           /p:CheckEolTargetFramework=false \
           /p:AndroidPackageFormat=apk
 
-    - name: Build iOS IPA
+    - name: Upload Android Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Coremini-Android-APK
+        path: |
+          **/bin/Release/net10.0-android/*/*.apk
+          **/bin/Release/net10.0-android/*.apk
+          **/*.apk
+
+  build-ios:
+    name: Build iOS IPA
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Install iOS Workload
+      run: dotnet workload install ios
+
+    - name: Restore Dependencies
+      run: dotnet restore ui-desktop.csproj -f net10.0-ios /p:CheckEolTargetFramework=false
+
+    - name: Build iOS App
       run: |
         dotnet build ui-desktop.csproj \
           -c Release \
@@ -49,12 +75,11 @@ jobs:
           /p:CheckEolTargetFramework=false \
           /p:BuildIpa=true
 
-    - name: Upload Artifacts (APK & IPA)
+    - name: Upload iOS Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Coremini-App-Packages
+        name: Coremini-iOS-IPA
         path: |
-          **/bin/Release/net10.0-android/**/*.apk
-          **/bin/Release/net10.0-ios/**/*.ipa
-          **/*.apk
+          **/bin/Release/net10.0-ios/*/*.ipa
           **/*.ipa
+          **/*.app
