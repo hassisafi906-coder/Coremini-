@@ -8,6 +8,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <AssemblyName>CoreminiApp</AssemblyName>
+    <RootNamespace>CoreminiApp</RootNamespace>
+    <ApplicationId>com.coremini.app</ApplicationId>
   </PropertyGroup>
 
 </Project>
