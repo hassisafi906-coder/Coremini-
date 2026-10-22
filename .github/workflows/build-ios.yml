@@ -31,7 +31,9 @@ jobs:
           -c Release \
           -f net10.0-ios \
           /p:CheckEolTargetFramework=false \
-          /p:BuildIpa=true
+          /p:BuildIpa=true \
+          /p:EnableCodeSigning=false \
+          /p:_RequireCodeSigning=false
 
     - name: Upload iOS Artifact
       uses: actions/upload-artifact@v4
