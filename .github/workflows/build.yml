@@ -23,15 +23,15 @@ jobs:
       run: dotnet workload install maui-android android
 
     - name: Restore Dependencies
-      run: dotnet restore
+      run: dotnet restore ui-desktop/ui-desktop.csproj
 
     - name: Build Project for Android
-      run: dotnet publish -c Release -f net8.0-android --no-restore
+      run: dotnet publish ui-desktop/ui-desktop.csproj -c Release -f net8.0-android --no-restore
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Coremini-Android-APK
         path: |
-          **/bin/Release/*/*/*.apk
-          **/bin/Release/*/*.apk
+          ui-desktop/bin/Release/*/*/*.apk
+          ui-desktop/bin/Release/*/*.apk
