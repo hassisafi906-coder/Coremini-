@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net10.0-android</TargetFrameworks>
+    <TargetFramework>net10.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <AssemblyName>CoreminiApp</AssemblyName>
     <RootNamespace>CoreminiApp</RootNamespace>
     <ApplicationId>com.coremini.app</ApplicationId>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <UseMaui>false</UseMaui>
   </PropertyGroup>
 
 </Project>
