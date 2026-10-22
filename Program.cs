@@ -1,9 +1,12 @@
-namespace CoreminiApp;
+using System;
 
-public class Program
+namespace CoreminiApp
 {
-    public static void Main(string[] args)
+    public class Program
     {
-        Console.WriteLine("Coremini App Started");
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Starting Coremini Android App...");
+        }
     }
 }

@@ -1,2 +1,0 @@
-/data/data/com.termux/files/home/coremini-site/downloads/mac/ui-desktop.pdb
-/data/data/com.termux/files/home/coremini-site/downloads/mac/ui-desktop
